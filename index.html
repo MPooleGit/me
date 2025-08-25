@@ -15,7 +15,7 @@
             padding: 0;
             overflow-x: hidden;
             font-size: 200%; /* Double size */
-            cursor: none; /* Hide default cursor */
+            cursor: none; /* Hide system cursor */
         }
         .container { width: 80%; margin: auto; overflow: hidden; }
 
@@ -26,9 +26,9 @@
             transition: all 1s ease-out;
         }
         .main-info.visible { opacity: 1; transform: translateY(0); }
-        .main-info h1 { margin: 0; }
         .main-info img {
-            width: 180px; height: 180px; border-radius: 50%; margin-bottom: 15px;
+            width: 180px; height: 180px; border-radius: 50%;
+            margin-bottom: 15px;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         .main-info img:hover {
@@ -42,7 +42,6 @@
         .course { background: rgba(135, 206, 250, 0.95); }
         .fun-fact { background: rgba(250, 128, 114, 0.95); }
 
-        /* Shared box styles */
         .hobbies, .career, .course, .fun-fact {
             padding: 20px; margin: 20px auto; border-radius: 15px;
             opacity: 0; transform: translateY(50px);
@@ -81,7 +80,7 @@
             background: linear-gradient(45deg, #1e90ff, #ff4c4c);
             color: #fff; border: none; padding: 14px 22px;
             border-radius: 50px; font-size: 90%; font-weight: bold;
-            cursor: none; /* hide cursor on button too */
+            cursor: none; 
             opacity: 0; pointer-events: none;
             transition: opacity 0.4s, transform 0.3s;
             z-index: 1000;
@@ -92,7 +91,7 @@
         }
         #backToTop.show { opacity: 1; pointer-events: auto; }
 
-        /* Custom glowing cursor */
+        /* Main cursor */
         .cursor {
             width: 25px; height: 25px;
             border: 3px solid white;
@@ -109,6 +108,33 @@
             transform: translate(-50%, -50%) scale(1.5);
             box-shadow: 0 0 25px rgba(255,76,76,0.9), 0 0 40px rgba(30,144,255,0.8);
         }
+
+        /* Cursor trail particles */
+        .particle {
+            position: fixed;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 10px rgba(255,255,255,0.8);
+            animation: fadeOut 1s forwards;
+            z-index: 1500;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.3); }
+        }
+
+        /* Music toggle button */
+        #musicToggle {
+            position: fixed; bottom: 30px; left: 30px;
+            background: linear-gradient(45deg, #ff4c4c, #1e90ff);
+            color: white; padding: 12px 20px;
+            border: none; border-radius: 50px;
+            font-weight: bold; cursor: none;
+            z-index: 1200;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        }
     </style>
 </head>
 <body>
@@ -120,7 +146,6 @@
             <p>Student Lewis University / Jewel Meat Department</p>
         </header>
 
-        <!-- Email and LinkedIn links -->
         <section class="contact-links">
             <a href="mailto:MichaelJPoole@Lewisu.edu">Email Me</a>
             <a href="https://www.linkedin.com/in/michael-poole-b20362288" target="_blank">LinkedIn</a>
@@ -172,11 +197,20 @@
     <!-- Back to Top Button -->
     <button id="backToTop">⬆ Top</button>
 
+    <!-- Music Toggle Button -->
+    <button id="musicToggle">🔊 Play Music</button>
+
     <!-- Custom Cursor -->
     <div class="cursor" id="cursor"></div>
 
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="Wii Coconut Mall (Mario Kart Wii) - Mario Kart World (OST) [Ly95hJmlHLU].mp3" type="audio/mpeg">
+        <!-- Replace with your own MP3 file -->
+    </audio>
+
     <script>
-        // Intersection Observer for staggered animations
+        // Animate sections into view
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
@@ -187,11 +221,10 @@
                 }
             });
         }, { threshold: 0.2 });
-
         document.querySelectorAll(".main-info, .career, .hobbies, .course, .fun-fact, footer")
             .forEach(section => observer.observe(section));
 
-        // Back to Top Button logic
+        // Back to Top Button
         const backToTopBtn = document.getElementById("backToTop");
         window.addEventListener("scroll", () => {
             if (window.scrollY > 300) {
@@ -204,16 +237,40 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
-        // Custom Cursor logic
+        // Cursor logic
         const cursor = document.getElementById("cursor");
         document.addEventListener("mousemove", e => {
             cursor.style.left = e.clientX + "px";
             cursor.style.top = e.clientY + "px";
+
+            // create trail particle
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            particle.style.left = e.clientX + "px";
+            particle.style.top = e.clientY + "px";
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 1000);
         });
 
-        // Glow effect when clicking
         document.addEventListener("mousedown", () => cursor.classList.add("glow"));
         document.addEventListener("mouseup", () => cursor.classList.remove("glow"));
+
+        // Music toggle
+        const music = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicToggle");
+        music.volume = 0.5;
+        let playing = false;
+
+        musicBtn.addEventListener("click", () => {
+            if (playing) {
+                music.pause();
+                musicBtn.textContent = "🔊 Play Music";
+            } else {
+                music.play();
+                musicBtn.textContent = "🔇 Pause Music";
+            }
+            playing = !playing;
+        });
     </script>
 </body>
 </html>
