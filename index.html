@@ -6,38 +6,87 @@
     <title>Introduction to Michael Poole</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #ADD8E6; /* Light Blue */
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            background: linear-gradient(to bottom right, #1e90ff, #ff4c4c); /* Blue to Red Gradient */
             line-height: 1.6;
+            text-align: center;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
+            animation: fadeIn 2s ease-in-out;
         }
         .main-info {
-            background: #333;
+            background: rgba(51, 51, 51, 0.85);
             color: #fff;
             padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            animation: slideDown 1.5s ease-out;
         }
         .main-info h1 {
             margin: 0;
-                }
+        }
         .main-info img {
-            width: 150px; /* Adjust size as needed */
+            width: 150px;
             height: 150px;
-            border-radius: 50%; /* Makes the image round */
+            border-radius: 50%;
             margin-bottom: 15px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        .hobbies, .career, .course {
-            background: #e7e7e7;
-            padding: 15px;
-            margin-bottom: 10px;
+        .main-info img:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
-        .fun-fact {
-            background: #e7e7e7; /* Add grey background here */
+        .hobbies, .career, .course, .fun-fact {
+            background: rgba(231, 231, 231, 0.95);
             padding: 15px;
-            margin-bottom: 10px;
+            margin: 15px auto;
+            border-radius: 10px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: fadeUp 1.5s ease forwards;
+        }
+        .hobbies:hover, .career:hover, .course:hover, .fun-fact:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .contact-links a {
+            display: inline-block;
+            margin: 10px;
+            color: #fff;
+            background: #333;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .contact-links a:hover {
+            background: #ff4c4c;
+            transform: scale(1.1);
+        }
+        footer {
+            margin-top: 20px;
+            color: #fff;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -69,7 +118,7 @@
             <p>Working out/Running</p>
             <p>Camping/Hiking/Outdoors</p>
             <p>Video Games</p>
-            <p>Vacations / Travel / Musuems / Touring new places</p>
+            <p>Vacations / Travel / Museums / Touring new places</p>
         </section>
 
         <section class="career">
@@ -77,9 +126,8 @@
             <p>I like puzzles and figuring out how to make things work</p>
             <p>I like creativity, improving processes and keeping things working</p>
             <p>It will never get old because you need to keep learning new software and tools</p>
-            <p>Looking forward to a flexible work schedule and flexability of working at home sometimes</p>
+            <p>Looking forward to a flexible work schedule and flexibility of working at home sometimes</p>
             <p>Developing new ways of doing things to help people work smarter</p>
-           
         </section>
 
         <section class="course">
@@ -87,12 +135,12 @@
             <p>Learn how to build better software programs</p>
             <p>Gain more experience with programming</p>
             <p>Learn more programming languages</p>
-            <p>Improve my programing skills to get an internship</p>
+            <p>Improve my programming skills to get an internship</p>
         </section>
 
         <section class="fun-fact">
             <h2>Fun Fact</h2>
-            <p>[I am an Eagle Eagle Scout, love the outdoors, exploring new places]</p>
+            <p>[I am an Eagle Scout, love the outdoors, exploring new places]</p>
         </section>
         
         <footer>
@@ -100,5 +148,4 @@
         </footer>
     </div>
 </body>
-</html>    
-   
+</html>
